@@ -26,6 +26,7 @@ RUN echo "server {"														>> wordpress && \
 	echo "\tindex index.php;\n"												>> wordpress && \
 	echo "\tserver_name localhost;\n"										>> wordpress && \
 	echo "\tlocation / {"													>> wordpress && \
+	echo '\tautoindex on;'											>> wordpress && \
 	echo '\t\ttry_files $uri $uri/ =404;'									>> wordpress && \
 	echo "\t}\n"															>> wordpress && \
 	echo "\tlocation ~ \.php$ {"											>> wordpress && \
