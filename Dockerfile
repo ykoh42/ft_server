@@ -1,8 +1,8 @@
 # Step 1 : From
-FROM debian:buster
+FROM	debian:buster
 
 # Step 2 : Install
-RUN apt-get update && apt-get install -y \
+RUN	apt-get update && apt-get install -y \
 	wget			\
 	nginx			\
 	php-fpm			\
@@ -10,10 +10,10 @@ RUN apt-get update && apt-get install -y \
 	mariadb-client	\
 	php-mysql
 
-# Step 3 : Config SSL
-RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/localhost.key -out /etc/ssl/certs/localhost.crt -subj "/C=KR/ST=Seoul/O=42Seoul/CN=localhost"
+# Step 3 : Config SSL(CSR)
+RUN	openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/localhost.key -out /etc/ssl/certs/localhost.crt -subj "/C=KR/ST=Seoul/O=42Seoul/CN=localhost"
 
-# Step 4 : Config Nginx
+# Step 4 : Config Nginx && SSL
 RUN	cd /etc/nginx/sites-available && \
 	echo "server {"														>> wordpress && \
 	echo "\tlisten 80;"													>> wordpress && \
@@ -41,14 +41,14 @@ RUN	cd /etc/nginx/sites-available && \
 	ln -s /etc/nginx/sites-available/wordpress /etc/nginx/sites-enabled/wordpress
 
 # Step 5 : Config MySQL
-RUN service mysql start	&& \
+RUN	service mysql start	&& \
 	echo "CREATE DATABASE wordpress;" | mysql -u root --skip-password && \
 	echo "GRANT ALL ON wordpress.* TO 'root'@'localhost' WITH GRANT OPTION;" | mysql -u root --skip-password && \
 	echo "UPDATE mysql.user SET plugin='mysql_native_password' WHERE user='root';" | mysql -u root --skip-password && \
 	echo "FLUSH PRIVILEGES;" | mysql -u root --skip-password
 
 # Step 6 : Config wordpress
-RUN wget -O /tmp/wordpress.tar.gz https://wordpress.org/latest.tar.gz	&& \
+RUN	wget -O /tmp/wordpress.tar.gz https://wordpress.org/latest.tar.gz	&& \
 	tar -xzvf /tmp/wordpress.tar.gz -C /var/www							&& \
 	chown -R www-data.www-data /var/www/wordpress && \
 	cd /var/www/wordpress && \
@@ -67,10 +67,10 @@ RUN	cd /var/www/wordpress && \
 	grep "AllowNoPassword" config.inc.php | sed -i "s/false/true/g" config.inc.php
 
 # Step 8 : Config port
-EXPOSE 80 443
+EXPOSE	80 443
 
 # Step 9 : Run container
-CMD service nginx start && \
+CMD	service nginx start && \
 	service php7.3-fpm start && \
 	service mysql start && \
 	/bin/bash
