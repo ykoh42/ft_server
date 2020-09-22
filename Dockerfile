@@ -14,7 +14,7 @@ RUN	apt-get update && apt-get install -y	\
 RUN	openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/localhost.key -out /etc/ssl/certs/localhost.crt -subj "/C=KR/ST=Seoul/O=42Seoul/CN=localhost"
 
 # Step 4 : Config Nginx && SSL
-RUN	cd /etc/nginx/sites-available && \
+RUN	cd /etc/nginx/sites-available					&& \
 	echo "server {"							>> wordpress && \
 	echo "\tlisten 80;"						>> wordpress && \
 	echo "\tlisten [::]:80;\n"					>> wordpress && \
@@ -22,12 +22,13 @@ RUN	cd /etc/nginx/sites-available && \
 	echo "}\n"							>> wordpress && \
 	echo "server {"							>> wordpress && \
 	echo "\tlisten 443 ssl http2;"					>> wordpress && \
-	echo "\tlisten [::]:443 ssl http2;"				>> wordpress && \
+	echo "\tlisten [::]:443 ssl http2;\n"				>> wordpress && \
 	echo "\tssl_certificate_key /etc/ssl/private/localhost.key;"	>> wordpress && \
 	echo "\tssl_certificate /etc/ssl/certs/localhost.crt;\n"	>> wordpress && \
 	echo "\troot /var/www/wordpress;\n"				>> wordpress && \
 	echo "\tindex index.php;\n"					>> wordpress && \
 	echo "\tserver_name localhost;\n"				>> wordpress && \
+	echo '\terror_page 497 https://$host$request_uri;\n'	>> wordpress && \
 	echo "\tlocation / {"						>> wordpress && \
 	echo "\t\tautoindex on;"					>> wordpress && \
 	echo '\t\ttry_files $uri $uri/ =404;'				>> wordpress && \
