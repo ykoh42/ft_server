@@ -28,7 +28,7 @@ RUN	cd /etc/nginx/sites-available					&& \
 	echo "\troot /var/www/wordpress;\n"				>> wordpress && \
 	echo "\tindex index.php;\n"					>> wordpress && \
 	echo "\tserver_name localhost;\n"				>> wordpress && \
-	echo '\terror_page 497 https://$host$request_uri;\n'	>> wordpress && \
+	echo '\terror_page 497 https://$host$request_uri;\n'		>> wordpress && \
 	echo "\tlocation / {"						>> wordpress && \
 	echo "\t\tautoindex on;"					>> wordpress && \
 	echo '\t\ttry_files $uri $uri/ =404;'				>> wordpress && \

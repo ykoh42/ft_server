@@ -35,8 +35,9 @@ This project is intended to introduce you to the basics of system and network ad
     - WordPress data like sign up or post can be monitored in phpMyAdmin
 - [x] Redirect to the correct website depending on the URL
     - [x] [http://localhost](http://localhost)
+    - [x] [https://localhost](https://localhost)
     - [x] [http://localhost:80](http://localhost:80)
-    - [x] [http://localhost:80](http://localhost:80)
+    - [x] [https://localhost:80](https://localhost:80)
     - [x] [http://localhost:443](http://localhost:443)
     - [x] [https://localhost:443](https://localhost:443)
     - [x] [404 Not Found](http://localhost/index.html)
