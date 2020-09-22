@@ -3,11 +3,11 @@ FROM	debian:buster
 
 # Step 2 : Install
 RUN	apt-get update && apt-get install -y	\
-	wget									\
-	nginx									\
-	php-fpm									\
-	mariadb-server							\
-	mariadb-client							\
+	wget					\
+	nginx					\
+	php-fpm					\
+	mariadb-server				\
+	mariadb-client				\
 	php-mysql
 
 # Step 3 : Config SSL(CSR)
@@ -23,15 +23,15 @@ RUN	cd /etc/nginx/sites-available && \
 	echo "server {"													>> wordpress && \
 	echo "\tlisten 443 ssl http2;"									>> wordpress && \
 	echo "\tlisten [::]:443 ssl http2;"								>> wordpress && \
-	echo "\tssl_certificate_key /etc/ssl/private/localhost.key;"	 >> wordpress && \
-	echo "\tssl_certificate /etc/ssl/certs/localhost.crt;\n"		 >> wordpress && \
-	echo "\troot /var/www/wordpress;\n"								>> wordpress && \
-	echo "\tindex index.php;\n"										>> wordpress && \
-	echo "\tserver_name localhost;\n"								>> wordpress && \
-	echo "\tlocation / {"											>> wordpress && \
-	echo "\t\tautoindex on;"										>> wordpress && \
-	echo '\t\ttry_files $uri $uri/ =404;'							 >> wordpress && \
-	echo "\t}\n"													>> wordpress && \
+	echo "\tssl_certificate_key /etc/ssl/private/localhost.key;"	>> wordpress && \
+	echo "\tssl_certificate /etc/ssl/certs/localhost.crt;\n"	>> wordpress && \
+	echo "\troot /var/www/wordpress;\n"				>> wordpress && \
+	echo "\tindex index.php;\n"					>> wordpress && \
+	echo "\tserver_name localhost;\n"				>> wordpress && \
+	echo "\tlocation / {"						>> wordpress && \
+	echo "\t\tautoindex on;"					>> wordpress && \
+	echo '\t\ttry_files $uri $uri/ =404;'				 >> wordpress && \
+	echo "\t}\n"								>> wordpress && \
 	echo "\tlocation ~ \.php$ {"									>> wordpress && \
 	echo "\t\tinclude snippets/fastcgi-php.conf;"					>> wordpress && \
 	echo "\t\tfastcgi_pass unix:/var/run/php/php7.3-fpm.sock;"		>> wordpress && \
@@ -58,19 +58,19 @@ RUN	wget -O /tmp/wordpress.tar.gz https://wordpress.org/latest.tar.gz	&& \
  	sed -i "s/password_here//g" wp-config.php
 
 # Step 7 : Config phpMyAdmin
-RUN	cd /var/www/wordpress 																						&& \
+RUN	cd /var/www/wordpress 												&& \
 	wget -O /tmp/phpmyadmin.tar.gz https://www.phpmyadmin.net/downloads/phpMyAdmin-latest-all-languages.tar.gz	&& \
-	tar -xzvf /tmp/phpmyadmin.tar.gz -C /var/www/wordpress														&& \
-	mv php* phpmyadmin																							&& \
-	cd phpmyadmin																								&& \
-	mv config.sample.inc.php config.inc.php																		  && \
+	tar -xzvf /tmp/phpmyadmin.tar.gz -C /var/www/wordpress								&& \
+	mv php* phpmyadmin												&& \
+	cd phpmyadmin													&& \
+	mv config.sample.inc.php config.inc.php										&& \
 	grep "AllowNoPassword" config.inc.php | sed -i "s/false/true/g" config.inc.php
 
 # Step 8 : Config port
 EXPOSE	80 443
 
 # Step 9 : Run container
-CMD	service nginx start			&& \
+CMD	service nginx start		&& \
 	service php7.3-fpm start	&& \
-	service mysql start			&& \
+	service mysql start		&& \
 	/bin/bash
