@@ -16,7 +16,6 @@ This project is intended to introduce you to the basics of system and network ad
     docker run -it -p 80:80 -p 443:443 wordpress
     ```
 
-
 ## Checklist
 
 - [x] Place all the necessary files in `srcs` folder
@@ -25,20 +24,25 @@ This project is intended to introduce you to the basics of system and network ad
 - [x] Only one container
 - [x] Debian buster
 - [x] Nginx
-- [x] WordPress
+- [x] [WordPress](http://localhost/index.php)
 - [x] [phpMyAdmin](http://localhost/phpmyadmin)
 - [x] MySQL
 - [x] SSL protocol
+    - [x] [https://localhost](https://localhost)
+    - [x] Certificate
 - [x] Run several services at the same time
 - [x] Database works with the WordPress and phpMyAdmin
     - WordPress data like sign up or post can be monitored in phpMyAdmin
 - [x] Redirect to the correct website depending on the URL
-    - [x] [http -> https redirection](http://localhost)
+    - [x] [http://localhost](http://localhost)
+    - [x] [http://localhost:80](http://localhost:80)
+    - [x] [http://localhost:80](http://localhost:80)
+    - [x] [http://localhost:443](http://localhost:443)
+    - [x] [https://localhost:443](https://localhost:443)
     - [x] [404 Not Found](http://localhost/index.html)
-- autoindex
-    - [x] [autoindex](http://localhost/wp-admin/js/)
-    - [x] Disable autoindex
-
+- Disableable autoindex
+    - [x] [autoindex on](http://localhost/wp-admin/js/)
+    - [x] [autoindex off](http://localhost/wp-admin/js/)
 
 ## Mandatory part
 
