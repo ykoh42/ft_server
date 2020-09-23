@@ -16,7 +16,7 @@ RUN	apt-get update && apt-get install -y	\
 RUN	openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/localhost.key -out /etc/ssl/certs/localhost.crt -subj "/C=KR/ST=Seoul/O=42Seoul/CN=localhost"
 
 # Step 5 : Config Nginx && SSL
-RUN	cd /etc/nginx/sites-available							&& \
+RUN	cd /etc/nginx/sites-available					&& \
 	echo "server {"							>> wordpress && \
 	echo "\tlisten 80;"						>> wordpress && \
 	echo "\tlisten [::]:80;\n"					>> wordpress && \
@@ -42,7 +42,7 @@ RUN	cd /etc/nginx/sites-available							&& \
 	ln -s /etc/nginx/sites-available/wordpress /etc/nginx/sites-enabled/wordpress
 
 # Step 6 : Config MySQL
-RUN	service mysql start														&& \
+RUN	service mysql start												&& \
 	echo "CREATE DATABASE wordpress;" | mysql -u root --skip-password						&& \
 	echo "GRANT ALL ON wordpress.* TO 'root'@'localhost' WITH GRANT OPTION;" | mysql -u root --skip-password	&& \
 	echo "UPDATE mysql.user SET plugin='mysql_native_password' WHERE user='root';" | mysql -u root --skip-password	&& \
