@@ -1,7 +1,7 @@
 # Welcome to the ft_server! ![score](https://img.shields.io/badge/0/100-5cb85c?style=for-the-badge) 
 > ft_server is the project, which studies system administration.
 
-This project is intended to introduce you to the basics of system and network administration. It will allow you to install a complete web server, using a deployment technology named Docker.
+This project is intended to learn the basics of system and network administration. It will allow to install a complete web server, using a deployment technology named "Docker".
 
 ## Getting started
 1. Build container.
@@ -43,7 +43,7 @@ This project is intended to introduce you to the basics of system and network ad
     - [x] [404 Not Found](http://localhost/index.html)
 - Disableable autoindex
     - [x] [autoindex on](http://localhost/wp-admin/js/)
-    - [x] [autoindex off](http://localhost/wp-admin/js/)
+    - [ ] [autoindex off](http://localhost/wp-admin/js/)
 
 ## Mandatory part
 
