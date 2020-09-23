@@ -13,7 +13,14 @@ This project is intended to learn the basics of system and network administratio
 2. Run container.
 
     ```shell
+    # Default
     docker run -it -p 80:80 -p 443:443 wordpress
+
+    # autoindex on
+    docker run -e AUTOINDEX=on -it -p 80:80 -p 443:443 wordpress
+
+    # autoindex off
+    docker run -e AUTOINDEX=off -it -p 80:80 -p 443:443 wordpress
     ```
 
 ## Checklist
@@ -42,7 +49,7 @@ This project is intended to learn the basics of system and network administratio
     - [x] [404 Not Found](http://localhost/index.html)
 - Disableable autoindex
     - [x] [autoindex on](http://localhost/wp-admin/js/)
-    - [ ] [autoindex off](http://localhost/wp-admin/js/)
+    - [x] [autoindex off](http://localhost/wp-admin/js/)
 
 ## Mandatory part
 
