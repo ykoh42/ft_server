@@ -7,7 +7,6 @@ RUN	apt-get update && apt-get install -y	\
 	nginx					\
 	php-fpm					\
 	mariadb-server				\
-	mariadb-client				\
 	php-mysql
 
 # Step 3 : Config SSL(CSR)
@@ -17,12 +16,10 @@ RUN	openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private
 RUN	cd /etc/nginx/sites-available					&& \
 	echo "server {"							>> wordpress && \
 	echo "\tlisten 80;"						>> wordpress && \
-	echo "\tlisten [::]:80;\n"					>> wordpress && \
-	echo '\treturn 301 https://$host$request_uri;'			>> wordpress && \
-	echo "}\n"							>> wordpress && \
-	echo "server {"							>> wordpress && \
-	echo "\tlisten 443 ssl http2;"					>> wordpress && \
-	echo "\tlisten [::]:443 ssl http2;\n"				>> wordpress && \
+	echo "\tlisten [::]:80;\n"				>> wordpress && \
+	echo "\tlisten 443;"					>> wordpress && \
+	echo "\tlisten [::]:443;\n"				>> wordpress && \
+	echo "\tssl on;"					>> wordpress && \
 	echo "\tssl_certificate_key /etc/ssl/private/localhost.key;"	>> wordpress && \
 	echo "\tssl_certificate /etc/ssl/certs/localhost.crt;\n"	>> wordpress && \
 	echo "\troot /var/www/wordpress;\n"				>> wordpress && \
