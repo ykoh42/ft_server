@@ -47,7 +47,7 @@ This project is intended to learn the basics of system and network administratio
     - [x] [http://localhost:443](http://localhost:443)
     - [x] [https://localhost:443](https://localhost:443)
     - [x] [404 Not Found](http://localhost/index.html)
-- Disableable autoindex
+- [x] Disableable autoindex
     - [x] [autoindex on](http://localhost/wp-admin/js/)
     - [x] [autoindex off](http://localhost/wp-admin/js/)
 
