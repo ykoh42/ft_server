@@ -32,7 +32,6 @@ This project is intended to learn the basics of system and network administratio
     - [x] Certificate
 - [x] Run several services at the same time
 - [x] Database works with the WordPress and phpMyAdmin
-    - WordPress data like sign up or post can be monitored in phpMyAdmin
 - [x] Redirect to the correct website depending on the URL
     - [x] [http://localhost](http://localhost)
     - [x] [https://localhost](https://localhost)
