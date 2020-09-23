@@ -71,7 +71,7 @@ RUN	cd /var/www/wordpress 												&& \
 EXPOSE	80 443
 
 # Step 10 : Run container
-CMD	sed -i "s/autoindex on/autoindex $AUTOINDEX/g" /etc/nginx/sites-available/wordpress && \
+CMD	sed -i "s/autoindex on/autoindex $AUTOINDEX/g" /etc/nginx/sites-available/wordpress	&& \
 	service nginx start									&& \
 	service php7.3-fpm start								&& \
 	service mysql start									&& \
