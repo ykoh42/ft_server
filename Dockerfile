@@ -13,10 +13,11 @@ RUN	apt-get update && apt-get install -y	\
 	php-mysql
 
 # Step 4 : Config SSL(Self signed Certificate)
-RUN	openssl req -x509 -nodes -days 365 -newkey rsa:2048		\
-			-keyout /etc/ssl/private/localhost.key		\
-			-out /etc/ssl/certs/localhost.crt		\
-			-subj "/C=KR/ST=Seoul/O=42Seoul/CN=localhost"
+RUN	openssl req						\
+	-x509 -nodes -days 365 -newkey rsa:2048		\
+	-keyout /etc/ssl/private/localhost.key		\
+	-out /etc/ssl/certs/localhost.crt		\
+	-subj "/C=KR/ST=Seoul/O=42Seoul/CN=localhost"
 
 # Step 5 : Config Nginx && SSL
 RUN	cd /etc/nginx/sites-available					&& \
