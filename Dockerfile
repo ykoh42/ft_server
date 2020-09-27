@@ -12,8 +12,11 @@ RUN	apt-get update && apt-get install -y	\
 	mariadb-server				\
 	php-mysql
 
-# Step 4 : Config SSL(CSR)
-RUN	openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/localhost.key -out /etc/ssl/certs/localhost.crt -subj "/C=KR/ST=Seoul/O=42Seoul/CN=localhost"
+# Step 4 : Config SSL(Self signed Certificate)
+RUN	openssl req -x509 -nodes -days 365 -newkey rsa:2048	\
+				-keyout /etc/ssl/private/localhost.key	\
+				-out /etc/ssl/certs/localhost.crt	\
+				-subj "/C=KR/ST=Seoul/O=42Seoul/CN=localhost"
 
 # Step 5 : Config Nginx && SSL
 RUN	cd /etc/nginx/sites-available					&& \
@@ -48,7 +51,16 @@ RUN	service mysql start												&& \
 	echo "UPDATE mysql.user SET plugin='mysql_native_password' WHERE user='root';" | mysql -u root --skip-password	&& \
 	echo "FLUSH PRIVILEGES;" | mysql -u root --skip-password
 
-# Step 7 : Config wordpress
+# Step 7 : Config phpMyAdmin
+RUN	cd /var/www/wordpress 												&& \
+	wget -O /tmp/phpmyadmin.tar.gz https://www.phpmyadmin.net/downloads/phpMyAdmin-latest-all-languages.tar.gz	&& \
+	tar -xzvf /tmp/phpmyadmin.tar.gz -C /var/www/wordpress								&& \
+	mv php* phpmyadmin												&& \
+	cd phpmyadmin													&& \
+	mv config.sample.inc.php config.inc.php										&& \
+	grep "AllowNoPassword" config.inc.php | sed -i "s/false/true/g" config.inc.php
+
+# Step 8 : Config wordpress
 RUN	wget -O /tmp/wordpress.tar.gz https://wordpress.org/latest.tar.gz	&& \
 	tar -xzvf /tmp/wordpress.tar.gz -C /var/www				&& \
 	chown -R www-data.www-data /var/www/wordpress				&& \
@@ -57,15 +69,6 @@ RUN	wget -O /tmp/wordpress.tar.gz https://wordpress.org/latest.tar.gz	&& \
 	sed -i "s/database_name_here/wordpress/g" wp-config.php			&& \
 	sed -i "s/username_here/root/g" wp-config.php				&& \
 	sed -i "s/password_here//g" wp-config.php
-
-# Step 8 : Config phpMyAdmin
-RUN	cd /var/www/wordpress 												&& \
-	wget -O /tmp/phpmyadmin.tar.gz https://www.phpmyadmin.net/downloads/phpMyAdmin-latest-all-languages.tar.gz	&& \
-	tar -xzvf /tmp/phpmyadmin.tar.gz -C /var/www/wordpress								&& \
-	mv php* phpmyadmin												&& \
-	cd phpmyadmin													&& \
-	mv config.sample.inc.php config.inc.php										&& \
-	grep "AllowNoPassword" config.inc.php | sed -i "s/false/true/g" config.inc.php
 
 # Step 9 : Config port
 EXPOSE	80 443
