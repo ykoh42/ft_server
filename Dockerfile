@@ -20,29 +20,29 @@ RUN	openssl req					\
 	-subj "/C=KR/ST=Seoul/O=42Seoul/CN=localhost"
 
 # Step 5 : Config Nginx && SSL
-RUN	cd /etc/nginx/sites-available					&& \
-	echo "server {"							>> wordpress && \
-	echo "\tlisten 80;"						>> wordpress && \
-	echo "\tlisten [::]:80;\n"					>> wordpress && \
-	echo "\tlisten 443;"						>> wordpress && \
-	echo "\tlisten [::]:443;\n"					>> wordpress && \
-	echo "\tssl on;"						>> wordpress && \
-	echo "\tssl_certificate_key /etc/ssl/private/localhost.key;"	>> wordpress && \
-	echo "\tssl_certificate /etc/ssl/certs/localhost.crt;\n"	>> wordpress && \
-	echo "\troot /var/www/wordpress;\n"				>> wordpress && \
-	echo "\tindex index.php;\n"					>> wordpress && \
-	echo "\tserver_name localhost;\n"				>> wordpress && \
-	echo '\terror_page 497 https://$host$request_uri;\n'		>> wordpress && \
-	echo "\tlocation / {"						>> wordpress && \
-	echo "\t\tautoindex on;"					>> wordpress && \
-	echo '\t\ttry_files $uri $uri/ =404;'				>> wordpress && \
-	echo "\t}\n"							>> wordpress && \
-	echo "\tlocation ~ \.php$ {"					>> wordpress && \
-	echo "\t\tinclude snippets/fastcgi-php.conf;"			>> wordpress && \
-	echo "\t\tfastcgi_pass unix:/var/run/php/php7.3-fpm.sock;"	>> wordpress && \
-	echo "\t}"							>> wordpress && \
-	echo "}"							>> wordpress && \
-	rm /etc/nginx/sites-enabled/default				&& \
+RUN	cd /etc/nginx/sites-available							&& \
+	echo "server {"									>> wordpress && \
+	echo "\tlisten 80;"								>> wordpress && \
+	echo "\tlisten [::]:80;\n"							>> wordpress && \
+	echo "\tlisten 443;"								>> wordpress && \
+	echo "\tlisten [::]:443;\n"							>> wordpress && \
+	echo "\tssl on;"								>> wordpress && \
+	echo "\tssl_certificate_key /etc/ssl/private/localhost.key;"			>> wordpress && \
+	echo "\tssl_certificate /etc/ssl/certs/localhost.crt;\n"			>> wordpress && \
+	echo "\troot /var/www/wordpress;\n"						>> wordpress && \
+	echo "\tindex index.php;\n"							>> wordpress && \
+	echo "\tserver_name localhost;\n"						>> wordpress && \
+	echo '\terror_page 497 https://$host$request_uri;\n'				>> wordpress && \
+	echo "\tlocation / {"								>> wordpress && \
+	echo "\t\tautoindex on;"							>> wordpress && \
+	echo '\t\ttry_files $uri $uri/ =404;'						>> wordpress && \
+	echo "\t}\n"									>> wordpress && \
+	echo "\tlocation ~ \.php$ {"							>> wordpress && \
+	echo "\t\tinclude snippets/fastcgi-php.conf;"					>> wordpress && \
+	echo "\t\tfastcgi_pass unix:/var/run/php/php7.3-fpm.sock;"			>> wordpress && \
+	echo "\t}"									>> wordpress && \
+	echo "}"									>> wordpress && \
+	rm /etc/nginx/sites-enabled/default						&& \
 	ln -s /etc/nginx/sites-available/wordpress /etc/nginx/sites-enabled/wordpress
 
 # Step 6 : Config MySQL
