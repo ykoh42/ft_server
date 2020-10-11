@@ -1,4 +1,4 @@
-# Step 1 : From
+# Step 1 : From image
 FROM	debian:buster
 
 # Step 2 : Set env
@@ -71,12 +71,11 @@ RUN	cd /var/www/wordpress 												&& \
 	mv config.sample.inc.php config.inc.php										&& \
 	grep "AllowNoPassword" config.inc.php | sed -i "s/false/true/g" config.inc.php
 
-# Step 9 : Config port
+# Step 9 : Expose port
 EXPOSE	80 443
 
 # Step 10 : Run container
 CMD	sed -i "s/autoindex on/autoindex $AUTOINDEX/g" /etc/nginx/sites-available/wordpress	&& \
-	service nginx start									&& \
 	service php7.3-fpm start								&& \
 	service mysql start									&& \
-	/bin/bash
+	nginx -g "daemon off;"
