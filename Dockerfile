@@ -9,7 +9,7 @@ RUN	apt-get update && apt-get install -y	\
 	wget					\
 	nginx					\
 	php-fpm					\
-	default-mysql-server				\
+	default-mysql-server			\
 	php-mysql
 
 # Step 4 : Config SSL(Self signed Certificate)

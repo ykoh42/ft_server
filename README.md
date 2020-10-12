@@ -6,13 +6,13 @@ This project is intended to learn the basics of system and network administratio
 ## Getting started
 1. Build container.
 
-    ```shell
+    ``` shell
     docker build -t wordpress .
     ```
 
 2. Run container.
 
-    ```shell
+    ``` shell
     # Default
     docker run -p 80:80 -p 443:443 -d wordpress
 
