@@ -78,4 +78,5 @@ EXPOSE	80 443
 CMD	sed -i "s/autoindex on/autoindex $AUTOINDEX/g" /etc/nginx/sites-available/wordpress	&& \
 	service php7.3-fpm start								&& \
 	service mysql start									&& \
+	echo "Nginx is running foreground."							&& \
 	nginx -g "daemon off;"
