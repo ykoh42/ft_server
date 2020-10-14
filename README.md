@@ -1,4 +1,4 @@
-# Welcome to the ft_server! ![score](https://img.shields.io/badge/0/100-5cb85c?style=for-the-badge) 
+# Welcome to the ft_server! ![score](https://img.shields.io/badge/100/100-5cb85c?style=for-the-badge) 
 > ft_server is the project, which studies system administration.
 
 This project is intended to learn the basics of system and network administration. It will allow to install a complete web server, using a deployment technology named "Docker".
