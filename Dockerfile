@@ -69,7 +69,7 @@ RUN	cd /var/www/wordpress 												&& \
 	mv php* phpmyadmin												&& \
 	cd phpmyadmin													&& \
 	mv config.sample.inc.php config.inc.php										&& \
-	grep "AllowNoPassword" config.inc.php | sed -i "s/false/true/g" config.inc.php
+	sed -i '/AllowNoPassword/ s/false/true/g' config.inc.php
 
 # Step 9 : Expose port
 EXPOSE	80 443
